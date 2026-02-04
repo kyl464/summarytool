@@ -145,7 +145,7 @@ export default function SummaryForm({ onGenerated }: SummaryFormProps) {
         learnedLessons: selectedLessons,
         completionStatus,
         continueNextQuarter,
-        nextLessonId: nextLessonId!,
+        nextLessonId: isCustomNextLesson ? 0 : nextLessonId!,
         nextCategory: (level === 'SMA' && continueNextQuarter && !isNextPathTBA) ? nextCategory : undefined,
         nextTrack: (level === 'SMA' && continueNextQuarter && !isNextPathTBA) ? nextTrack : undefined,
         classMode,
