@@ -31,11 +31,15 @@ func GenerateSummary(c *gin.Context) {
 		return
 	}
 
-	// Fetch next lesson
-	nextLesson, err := fetchLessonByID(req.NextLessonID, req.Level)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch next lesson"})
-		return
+	// Fetch next lesson (skip if custom lesson is provided)
+	var nextLesson models.Lesson
+	if req.CustomNextLesson == "" {
+		var err error
+		nextLesson, err = fetchLessonByID(req.NextLessonID, req.Level)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch next lesson"})
+			return
+		}
 	}
 
 	// Generate summary using Gemini
