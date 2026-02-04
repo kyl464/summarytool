@@ -29,6 +29,8 @@ export default function SummaryForm({ onGenerated }: SummaryFormProps) {
   const [nextTrack, setNextTrack] = useState('');
   const [isNextPathTBA, setIsNextPathTBA] = useState(false);
   const [nextLessonOptions, setNextLessonOptions] = useState<Lesson[]>([]);
+  const [isCustomNextLesson, setIsCustomNextLesson] = useState(false);
+  const [customNextLesson, setCustomNextLesson] = useState('');
 
   // Fetch lessons when level/flow data changes
   useEffect(() => {
@@ -127,7 +129,7 @@ export default function SummaryForm({ onGenerated }: SummaryFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!nickname || selectedLessons.length === 0 || !nextLessonId) {
+    if (!nickname || selectedLessons.length === 0 || (!nextLessonId && !isCustomNextLesson) || (isCustomNextLesson && !customNextLesson.trim())) {
       alert('Please fill in all required fields');
       return;
     }
@@ -146,7 +148,8 @@ export default function SummaryForm({ onGenerated }: SummaryFormProps) {
         nextLessonId: nextLessonId!,
         nextCategory: (level === 'SMA' && continueNextQuarter && !isNextPathTBA) ? nextCategory : undefined,
         nextTrack: (level === 'SMA' && continueNextQuarter && !isNextPathTBA) ? nextTrack : undefined,
-        classMode
+        classMode,
+        customNextLesson: isCustomNextLesson ? customNextLesson : undefined
       };
       
       const response = await api.generateSummary(request);
@@ -327,31 +330,70 @@ export default function SummaryForm({ onGenerated }: SummaryFormProps) {
 
       <div className="mb-12">
         <label className="form-label">Next Lesson Material</label>
-        <select 
-          className="form-input appearance-none"
-          value={nextLessonId || ''}
-          onChange={(e) => setNextLessonId(Number(e.target.value))}
-          required
+        
+        {/* Custom Next Lesson Checkbox */}
+        <div 
+          className="mb-4 flex items-center gap-3 cursor-pointer group" 
+          onClick={() => {
+            setIsCustomNextLesson(!isCustomNextLesson);
+            if (!isCustomNextLesson) {
+              setNextLessonId(null);
+            } else {
+              setCustomNextLesson('');
+            }
+          }}
         >
-          <option value="" className="bg-slate-900">Select Next Lesson</option>
-          
-          {level === 'SMA' && continueNextQuarter && isNextPathTBA ? (
-            <option value="999" className="bg-slate-900">New Category - To Be Determined (TBA)</option>
-          ) : (
-            <>
-              {nextLessonOptions.map(l => (
-                <option key={l.id} value={l.id} className="bg-slate-900">{l.name}</option>
-              ))}
-              
-              {/* Default fallback and "Introductory" options */}
-              {(nextLessonOptions.length === 0 || (level !== 'SMA' && continueNextQuarter)) && (
-                <option value="999" className="bg-slate-900">
-                  {level === 'SMA' ? "Next Path Introductory Lesson" : "Next Quarter Introductory Lesson"}
-                </option>
-              )}
-            </>
-          )}
-        </select>
+          <div className={`
+            w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-300
+            ${isCustomNextLesson ? 'bg-blue-500 border-blue-500' : 'bg-transparent border-slate-500 group-hover:border-slate-400'}
+          `}>
+            {isCustomNextLesson && (
+              <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+          </div>
+          <span className="text-sm font-bold text-slate-400 group-hover:text-slate-300 uppercase tracking-wider">
+            Enter custom next lesson
+          </span>
+        </div>
+
+        {isCustomNextLesson ? (
+          <input
+            type="text"
+            className="form-input"
+            placeholder="e.g. Review session, Special project, etc."
+            value={customNextLesson}
+            onChange={(e) => setCustomNextLesson(e.target.value)}
+            required
+          />
+        ) : (
+          <select 
+            className="form-input appearance-none"
+            value={nextLessonId || ''}
+            onChange={(e) => setNextLessonId(Number(e.target.value))}
+            required
+          >
+            <option value="" className="bg-slate-900">Select Next Lesson</option>
+            
+            {level === 'SMA' && continueNextQuarter && isNextPathTBA ? (
+              <option value="999" className="bg-slate-900">New Category - To Be Determined (TBA)</option>
+            ) : (
+              <>
+                {nextLessonOptions.map(l => (
+                  <option key={l.id} value={l.id} className="bg-slate-900">{l.name}</option>
+                ))}
+                
+                {/* Default fallback and "Introductory" options */}
+                {(nextLessonOptions.length === 0 || (level !== 'SMA' && continueNextQuarter)) && (
+                  <option value="999" className="bg-slate-900">
+                    {level === 'SMA' ? "Next Path Introductory Lesson" : "Next Quarter Introductory Lesson"}
+                  </option>
+                )}
+              </>
+            )}
+          </select>
+        )}
       </div>
 
       <button 

@@ -28,6 +28,7 @@ export interface SummaryRequest {
   nextCategory?: string;
   nextTrack?: string;
   classMode: 'Online' | 'Onsite';
+  customNextLesson?: string;
 }
 
 export interface SummaryResponse {

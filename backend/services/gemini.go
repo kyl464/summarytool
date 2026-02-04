@@ -124,7 +124,11 @@ func buildPrompt(req models.SummaryRequest, lessonsLearned []models.Lesson, next
 	}
 
 	nextSessionInfo := fmt.Sprintf("%s (%s)", nextLesson.LessonName, nextLesson.Description)
-	if req.Level == "SMA" && req.ContinueNextQuarter {
+
+	// If custom lesson is provided, use it directly
+	if req.CustomNextLesson != "" {
+		nextSessionInfo = req.CustomNextLesson
+	} else if req.Level == "SMA" && req.ContinueNextQuarter {
 		if req.NextCategory != "" && req.NextTrack != "" {
 			nextSessionInfo = fmt.Sprintf("starting the %s curriculum in the %s track", req.NextCategory, req.NextTrack)
 		} else {

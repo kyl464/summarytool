@@ -27,6 +27,7 @@ type SummaryRequest struct {
 	NextCategory        string `json:"nextCategory,omitempty"`
 	NextTrack           string `json:"nextTrack,omitempty"`
 	ClassMode           string `json:"classMode"`
+	CustomNextLesson    string `json:"customNextLesson,omitempty"`
 }
 
 // SummaryResponse is the response body containing the generated summary
