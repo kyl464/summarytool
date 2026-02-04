@@ -1,0 +1,117 @@
+-- =====================================================
+-- Teacher Summary Tool - SD1 Extended Curriculum Seed
+-- Quarters 5-12 for SD1
+-- =====================================================
+
+INSERT INTO curriculum_regular (level, quarter, lesson_order, lesson_name, description, is_milestone) VALUES
+-- Quarter 5
+('SD1', 5, 1, 'Code.org - Hello World', 'Learn the basics of computer science by programming in Sprite Lab. Create and animate sprites, and make your own interactive scenes.', false),
+('SD1', 5, 2, 'Scratch - Music Cards', 'Choose instruments, add sounds, and press keys to play music using Scratch coding.', false),
+('SD1', 5, 3, 'Code.org - Code with Anna and Elsa', 'Learn coding basics by guiding Anna and Elsa with movement commands, using loops to create shapes and snowflakes.', false),
+('SD1', 5, 4, 'Raspberry Pi - Scratch: Fruit Salad', 'Create an app for family and friends to design their own fruit salad while learning food art and coding.', false),
+('SD1', 5, 5, 'Raspberry Pi - Scratch: Rock Band', 'Learn how to code musical instruments, change costumes, react to input, and add sounds to sprites.', false),
+('SD1', 5, 6, 'Raspberry Pi - Scratch: Paint Box', 'Create a paint program in Scratch using events, conditional statements, and the pen extension.', false),
+('SD1', 5, 7, 'Scratch Music Free project', 'Create a free project related to music applying knowledge about Scratch sound and music extensions.', false),
+('SD1', 5, 8, 'Code.org - Music lab: Jam Session', 'Explore creativity and coding using Music Lab, sequencing, decomposition, and configuring AI Beat Blocks.', false),
+('SD1', 5, 9, 'Code.org - Dance Party', 'Use code to make colorful characters perform dance moves to upbeat music and animated backgrounds.', false),
+('SD1', 5, 10, 'Raspberry Pi - Scratch: Flower Generator', 'Create a flower art generator using the pen extension, custom blocks, and the stamp feature.', false),
+('SD1', 5, 11, 'Review Milestone', 'Review and preparation for the quarter 5 milestone.', false),
+('SD1', 5, 12, 'Milestone 5', 'Quarter 5 milestone assessment.', true),
+
+-- Quarter 6
+('SD1', 6, 1, 'Dodo Does Math - HOC', 'Command Dodo to reach eggs using math and code-writing skills to solve quests efficiently.', false),
+('SD1', 6, 2, 'Roboblockly - Math Activity (Intro)', 'Solve math quizzes and puzzles using simple programming, focusing on summation and multiplicity.', false),
+('SD1', 6, 3, 'Roboblockly - Math Activity (Intermediate)', 'Learn intermediate math skills like distribution and comparison to solve practical problems with programming.', false),
+('SD1', 6, 4, 'CoSpace - Introduction & Movement', 'Explore CoSpace platform, setting up scenes, adding objects, and programming basic movement.', false),
+('SD1', 6, 5, 'CoSpace - Presentation & Name Tag', 'Create a personal presentation and a virtual world representing yourself using CoSpace features.', false),
+('SD1', 6, 6, 'CoSpace - Virtual Plate & Women in Science', 'Create VR projects featuring meals and learn about female scientists using the MERGE CUBE.', false),
+('SD1', 6, 7, 'Hatch Kids - Solar System', 'Recreate the solar system with coding, learning about positioning stars, planets, and galaxies.', false),
+('SD1', 6, 8, 'Code.org - Geometric Star Quilt', 'Create geometric patterns in star quilts, blending mathematical concepts with creative expression.', false),
+('SD1', 6, 9, 'CoSpace - Interesting Zoo', 'Create a zoo project with quiz questions and program objects to move around in directions or paths.', false),
+('SD1', 6, 10, 'CoSpace - Cycle of Seasons', 'Create a project featuring the four seasons, practicing CoSpace skills and creative expressions.', false),
+('SD1', 6, 11, 'Review Milestone', 'Review and preparation for the quarter 6 milestone.', false),
+('SD1', 6, 12, 'Milestone 6', 'Quarter 6 milestone assessment.', true),
+
+-- Quarter 7
+('SD1', 7, 1, 'Marine Ecosystem: Overfishing', 'Program a model of an aquatic ecosystem and simulate overfishing using conditional statements.', false),
+('SD1', 7, 2, 'Marine Ecosystem: Balancing', 'Explore solutions to overfishing by programming fishing zones, seasons, and tracking removals with variables.', false),
+('SD1', 7, 3, 'Code.org - Outbreak Simulator', 'Simulate a virus outbreak and learn about the importance of masks using events and properties.', false),
+('SD1', 7, 4, 'Code.org - Adaptations Intro', 'Code interactive models to explore how giraffes, bunnies, and birds adapted to their environments.', false),
+('SD1', 7, 5, 'Code.org - Adaptations (continued)', 'Further development of ecosystem and animal adaptation simulations.', false),
+('SD1', 7, 6, 'Code.org - Adaptations (final)', 'Complete the adaptation projects and interactive models.', false),
+('SD1', 7, 7, 'Scratch - Save the Shark', 'Create a game to save sharks, learning about their food sources and the impact of plastic pollution.', false),
+('SD1', 7, 8, 'Code.org - Coding a Time Capsule', 'Create a digital time capsule project applying learned programming concepts.', false),
+('SD1', 7, 9, 'Code.org - Coding a Time Capsule (continued)', 'Complete the time capsule project.', false),
+('SD1', 7, 10, 'Code.org - Course D project', 'Final project for Course D applying various coding skills learned throughout.', false),
+('SD1', 7, 11, 'Review Milestone', 'Review and preparation for the quarter 7 milestone.', false),
+('SD1', 7, 12, 'Milestone 7', 'Quarter 7 milestone assessment.', true),
+
+-- Quarter 8
+('SD1', 8, 1, 'GrokLearning - Monster Maker', 'Draw various monsters using the concept of sequencing and Blockly coding.', false),
+('SD1', 8, 2, 'GrokLearning - More Monster Maker', 'Use advanced sequencing and conditionals to draw complex monsters.', false),
+('SD1', 8, 3, 'Raspberry Pi - Scratch: Tech Toys', 'Create an animation project showcasing various tech toys using keyboard inputs and events.', false),
+('SD1', 8, 4, 'Code.org - AI for Oceans', 'Hands-on activity training an AI model to classify whether an object is a fish or not.', false),
+('SD1', 8, 5, 'Code.org - Dance Party with AI', 'Use artificial intelligence concepts to create a virtual dance party with top artists.', false),
+('SD1', 8, 6, 'PoseBlocks - Dancing with AI', 'Learn about Hand, Body, and Face sensing extensions in the PoseBlocks platform.', false),
+('SD1', 8, 7, 'ScratchLab - Face Sensing', 'Explore AI possibilities using face detection blocks to create games and interactive stories.', false),
+('SD1', 8, 8, 'ScratchLab - Video Sensing', 'Create interactive projects that respond to motion using video sensing technology.', false),
+('SD1', 8, 9, 'Tynker - AI Balancing & Monster', 'Create AI-powered projects featuring balancing skills and characters that respond to hand movements.', false),
+('SD1', 8, 10, 'Scratch - Surprise Animation', 'Create animations with nested loops, testing and debugging code to bring them to life.', false),
+('SD1', 8, 11, 'Review Milestone', 'Review and preparation for the quarter 8 milestone.', false),
+('SD1', 8, 12, 'Milestone 8', 'Quarter 8 milestone assessment.', true),
+
+-- Quarter 9
+('SD1', 9, 1, 'Minecraft - Aquatic Voyage', 'Complete coding puzzles to help Steve/Alex on a voyage using conditional loops and statements.', false),
+('SD1', 9, 2, 'Minecraft - Hero’s Journey', 'Learn sequencing, looping, and functions by help Steve/Alex escape traps with an agent.', false),
+('SD1', 9, 3, 'Minecraft - Designer', 'Design a custom Minecraft world while exercising the understanding of events.', false),
+('SD1', 9, 4, 'Minecraft - Java Edition Intro', 'Introduction to Java Edition, navigation, interfaces, and creating a custom skin in Tynker.', false),
+('SD1', 9, 5, 'Minecraft Modding: Sheep City', 'Create custom items like exploding arrows and mobs like speedy sheep using code.', false),
+('SD1', 9, 6, 'Minecraft Modding: Lucky Blocks', 'Create random game effects using methods, randomizers, and switch cases in CodeKingdoms.', false),
+('SD1', 9, 7, 'Minecraft Modding: Blocky Racer', 'Build a multiplayer racing world using timers, conditional statements, and events.', false),
+('SD1', 9, 8, 'Minecraft Modding: Highnoon Saloon', 'Create a Wild West PvP game exploring Java basics like methods, strings, and booleans.', false),
+('SD1', 9, 9, 'Minecraft Modding: Spartan School', 'Learn to spawn mobs in waves and manage properties in a survival arena world.', false),
+('SD1', 9, 10, 'Minecraft Modding: Spartan School (continued)', 'Complete the survival arena project with advanced wave logic.', false),
+('SD1', 9, 11, 'Review Milestone', 'Review and preparation for the quarter 9 milestone.', false),
+('SD1', 9, 12, 'Milestone 9', 'Quarter 9 milestone assessment.', true),
+
+-- Quarter 10
+('SD1', 10, 1, 'Scratch: Broadcast, Decisions, Variables', 'Learn event-driven programming with broadcast messages and decision-making with if blocks.', false),
+('SD1', 10, 2, 'Scratch: Drum Star & Simulation', 'Design a virtual drum kit and build a shop simulation managing variables and transactions.', false),
+('SD1', 10, 3, 'Scratch: Physics & Collision', 'Create platformer games exploring collision detection, gravity, and jumping mechanics.', false),
+('SD1', 10, 4, 'Scratch: Interactive Design', 'Program sprites that react to mouse movements and clicks using sensing blocks.', false),
+('SD1', 10, 5, 'Scratch: Advanced Projects Intro', 'Introduction to comprehensive Scratch projects covering variables, conditionals, and game mechanics.', false),
+('SD1', 10, 6, 'Scratch: Nature Rover', 'Create a wilderness exploration scene using clones for scrolling backgrounds and custom blocks.', false),
+('SD1', 10, 7, 'Scratch: Puzzle Room', 'Develop an online puzzle room using logical operators to manage game flow and puzzles.', false),
+('SD1', 10, 8, 'Scratch: Digital Art & Mandala', 'Program repeating circular designs (mandalas) using parameters and color schemes.', false),
+('SD1', 10, 9, 'Scratch: Swarms & Flocks', 'Simulate animal groups using clones, randomization, and predator/prey logic.', false),
+('SD1', 10, 10, 'Scratch: Music Maker & 2.5D World', 'Design a digital music maker and build immersive 2.5D interactive environments.', false),
+('SD1', 10, 11, 'Review Milestone', 'Review and preparation for the quarter 10 milestone.', false),
+('SD1', 10, 12, 'Milestone 10', 'Quarter 10 milestone assessment.', true),
+
+-- Quarter 11
+('SD1', 11, 1, 'Online Safety: Interland', 'Learn about internet safety by completing challenges in Google Interland.', false),
+('SD1', 11, 2, 'Online Safety: Cyber Five', 'Learn five helpful rules for internet safety and complete a review quiz.', false),
+('SD1', 11, 3, 'Online Safety: Cloud Chaos', 'Play an interactive online safety adventure to learn about various protective actions.', false),
+('SD1', 11, 4, 'Digital Citizenship 3', 'Study online communities, safety, secure passwords, and critical thinking.', false),
+('SD1', 11, 5, 'Cyberwarvel: Privacy & Passwords', 'Learn about personal information, privacy risks, and how to create secure passwords.', false),
+('SD1', 11, 6, 'Cyberwarvel: Scams & Encryption', 'Recognize phishing and scams, and explore basic encryption concepts via games.', false),
+('SD1', 11, 7, 'Intro to Cyber Security: Khan Academy', 'Watch videos and answer quizzes about cybersecurity fundamentals.', false),
+('SD1', 11, 8, 'Phishing & Threats', 'Classify phishing attempts and discuss cybersecurity threats in interactive simulations.', false),
+('SD1', 11, 9, 'Cybergames: Malware & Protection', 'Learn about application of cybersecurity in various professional fields through games.', false),
+('SD1', 11, 10, 'Scratch: Username Generator', 'Create a random username generator that avoids using personal information.', false),
+('SD1', 11, 11, 'Review Milestone', 'Review and preparation for the quarter 11 milestone.', false),
+('SD1', 11, 12, 'Milestone 11', 'Quarter 11 milestone assessment.', true),
+
+-- Quarter 12
+('SD1', 12, 1, 'Canva Essentials: Navigation', 'Learn to navigate Canva, use quick create buttons, and manage design elements.', false),
+('SD1', 12, 2, 'Canva Essentials: Search & Design', 'Use home page templates, Magic Design, and search elements with filters.', false),
+('SD1', 12, 3, 'Canva Essentials: Graphics & Text', 'Customize lines, shapes, and graphics, and practice adding and styling text.', false),
+('SD1', 12, 4, 'Canva Design Skills: Elements', 'Practice using frames, grids, charts, and applying advanced text effects.', false),
+('SD1', 12, 5, 'Canva Design Skills: Video & Recording', 'Learn to record and edit videos, use the background remover, and prepare designs.', false),
+('SD1', 12, 6, 'Canva Design Skills: Apps & Tools', 'Explore the draw tool and integrate apps like Google Maps and QR Codes into projects.', false),
+('SD1', 12, 7, 'Graphic Design: Basics', 'Learn to think like a designer, use space effectively, and create moodboards.', false),
+('SD1', 12, 8, 'Graphic Design: Alignment & Typography', 'Organize designs with grids, keeping elements consistent, and pairing fonts effectively.', false),
+('SD1', 12, 9, 'Graphic Design: Hierarchy & Color', 'Create visual hierarchy with size and color, and explore the color wheel.', false),
+('SD1', 12, 10, 'Graphic Design: Execution & Formats', 'Match colors to themes and choose appropriate file formats like JPEG, PNG, and PDF.', false),
+('SD1', 12, 11, 'Review Milestone', 'Review and preparation for the quarter 12 milestone.', false),
+('SD1', 12, 12, 'Milestone 12', 'Quarter 12 milestone assessment.', true);
