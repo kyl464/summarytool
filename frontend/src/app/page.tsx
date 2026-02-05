@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     // Check if user is authenticated with 7-day persistence
     const authSession = localStorage.getItem('auth_session');
-    
+
     if (!authSession) {
       router.push('/login');
       return;
@@ -25,13 +25,13 @@ export default function Home() {
 
       if (!isAuthenticated || isExpired) {
         localStorage.removeItem('auth_session');
-        router.push('/');
+        router.push('/login');
       } else {
         setIsLoading(false);
       }
     } catch (err) {
       localStorage.removeItem('auth_session');
-      router.push('/');
+      router.push('/login');
     }
   }, [router]);
 
@@ -60,10 +60,10 @@ export default function Home() {
         {!generatedSummary ? (
           <SummaryForm onGenerated={setGeneratedSummary} />
         ) : (
-          <SummaryDisplay 
-            summary={generatedSummary} 
-            onReset={() => setGeneratedSummary(null)} 
-           />
+          <SummaryDisplay
+            summary={generatedSummary}
+            onReset={() => setGeneratedSummary(null)}
+          />
         )}
       </div>
 
