@@ -38,6 +38,9 @@ func main() {
 	// API routes
 	api := r.Group("/api")
 	{
+		// Auth
+		api.POST("/login", handlers.Login)
+
 		// Levels
 		api.GET("/levels", handlers.GetLevels)
 

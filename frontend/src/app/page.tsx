@@ -1,11 +1,47 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import SummaryForm from '@/components/SummaryForm';
 import SummaryDisplay from '@/components/SummaryDisplay';
 
 export default function Home() {
   const [generatedSummary, setGeneratedSummary] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is authenticated with 7-day persistence
+    const authSession = localStorage.getItem('auth_session');
+    
+    if (!authSession) {
+      router.push('/login');
+      return;
+    }
+
+    try {
+      const { isAuthenticated, expiresAt } = JSON.parse(authSession);
+      const isExpired = new Date().getTime() > expiresAt;
+
+      if (!isAuthenticated || isExpired) {
+        localStorage.removeItem('auth_session');
+        router.push('/login');
+      } else {
+        setIsLoading(false);
+      }
+    } catch (err) {
+      localStorage.removeItem('auth_session');
+      router.push('/login');
+    }
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -27,12 +63,12 @@ export default function Home() {
           <SummaryDisplay 
             summary={generatedSummary} 
             onReset={() => setGeneratedSummary(null)} 
-          />
+           />
         )}
       </div>
 
       {/* Footer Decoration */}
-      <div className="mt-20 text-center text-sm text-gray-400 font-medium">
+      <div className="mt-20 text-center text-sm text-gray-500 font-medium">
         &copy; {new Date().getFullYear()} Teacher Summary Tool • Built by Luvky
       </div>
     </main>
