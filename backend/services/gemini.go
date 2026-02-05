@@ -7,10 +7,53 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 	"time"
 
 	"teacher-summary-api/models"
 )
+
+// Rate limiter: 5 requests per 15 minutes
+const (
+	rateLimitWindow  = 15 * time.Minute
+	rateLimitMaxReqs = 5
+)
+
+var (
+	requestTimes []time.Time
+	rateMutex    sync.Mutex
+)
+
+// checkRateLimit checks if we can make a new request, returns error if rate limited
+func checkRateLimit() error {
+	rateMutex.Lock()
+	defer rateMutex.Unlock()
+
+	now := time.Now()
+	windowStart := now.Add(-rateLimitWindow)
+
+	// Remove old timestamps outside the window
+	var validTimes []time.Time
+	for _, t := range requestTimes {
+		if t.After(windowStart) {
+			validTimes = append(validTimes, t)
+		}
+	}
+	requestTimes = validTimes
+
+	// Check if we've exceeded the limit
+	if len(requestTimes) >= rateLimitMaxReqs {
+		// Calculate when the oldest request will expire
+		oldestReq := requestTimes[0]
+		waitTime := oldestReq.Add(rateLimitWindow).Sub(now)
+		return fmt.Errorf("rate limit exceeded: max %d requests per %v. Please wait %v before trying again",
+			rateLimitMaxReqs, rateLimitWindow, waitTime.Round(time.Second))
+	}
+
+	// Record this request
+	requestTimes = append(requestTimes, now)
+	return nil
+}
 
 type GeminiService struct {
 	APIKey string
@@ -51,6 +94,11 @@ type geminiResponse struct {
 }
 
 func (g *GeminiService) GenerateSummary(req models.SummaryRequest, lessonsLearned []models.Lesson, nextLesson models.Lesson) (string, error) {
+	// Check rate limit before making the API call
+	if err := checkRateLimit(); err != nil {
+		return "", err
+	}
+
 	prompt := buildPrompt(req, lessonsLearned, nextLesson)
 
 	geminiReq := geminiRequest{
@@ -74,7 +122,7 @@ func (g *GeminiService) GenerateSummary(req models.SummaryRequest, lessonsLearne
 		return "", fmt.Errorf("failed to marshal request: %w", err)
 	}
 
-	url := fmt.Sprintf("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=%s", g.APIKey)
+	url := fmt.Sprintf("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=%s", g.APIKey)
 
 	// Create context with 10 second timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -123,7 +171,7 @@ func buildPrompt(req models.SummaryRequest, lessonsLearned []models.Lesson, next
 		lessonsText += fmt.Sprintf("- Project: %s. Details: %s\n", l.LessonName, l.Description)
 	}
 
-	nextSessionInfo := fmt.Sprintf("%s (%s)", nextLesson.LessonName, nextLesson.Description)
+	nextSessionInfo := nextLesson.LessonName
 
 	// If custom lesson is provided, use it directly
 	if req.CustomNextLesson != "" {
@@ -153,15 +201,17 @@ STRICT RULES:
 2. ONE PARAGRAPH ONLY: Do not use line breaks or multiple paragraphs.
 3. BE CONCISE: Keep it to 4-6 sentences total. Summarize the content efficiently.
 4. PROPER NOUNS: Use the student's name "%s" instead of "he", "she", or "they".
-5. FLOW:
-   - S1: Attendance, mode, and the current project name.
+5. ATTENDANCE FORMAT: Write "Onsite on time" or "Online on time" - NOT "Onsite [on time]" with brackets.
+6. NEXT LESSON: Only mention the project/lesson name. Do NOT include parenthetical descriptions like "(Learn advanced AI concepts...)".
+7. FLOW:
+   - S1: Attendance, mode (on time), and the current project name.
    - S2-3: Summarize what was learned/done (how/why) and the skills involved.
    - S4: Student's attitude/effort.
-   - S5: Next lesson mention (using info: %s).
+   - S5: Next lesson mention - just the project name: %s.
    - S6: Short positive closing (e.g., "Great job!").
 
 REFERENCE STYLE:
-"Today, Ben attended Onsite on time and worked on the MIT App Inventor – Global Food Map project. In this session, Ben focused on using maps, markers, and data to display information interactively, helping to build an understanding of how apps can visualize real-world data. This activity strengthened logical thinking, attention to detail, and confidence in working with more complex app components. Ben stayed focused and showed good effort throughout the session. In the next session, Ben will %s. Great job and awesome progress—keep up the great work!"
+"Today, Ben attended Onsite on time and worked on the MIT App Inventor – Global Food Map project. In this session, Ben focused on using maps, markers, and data to display information interactively, helping to build an understanding of how apps can visualize real-world data. This activity strengthened logical thinking, attention to detail, and confidence in working with more complex app components. Ben stayed focused and showed good effort throughout the session. In the next session, Ben will learn %s. Great job and awesome progress—keep up the great work!"
 
 Generate only the summary for %s below:`,
 		req.Nickname,
