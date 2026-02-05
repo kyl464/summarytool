@@ -25,13 +25,13 @@ export default function Home() {
 
       if (!isAuthenticated || isExpired) {
         localStorage.removeItem('auth_session');
-        router.push('/login');
+        router.push('/');
       } else {
         setIsLoading(false);
       }
     } catch (err) {
       localStorage.removeItem('auth_session');
-      router.push('/login');
+      router.push('/');
     }
   }, [router]);
 
